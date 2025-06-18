@@ -2,20 +2,20 @@
 #include <MFRC522.h>
 #include <SPI.h>
 
-int RST_PIN = 9; //RC522 modülü reset pinini tanımlıyoruz.
-int SS_PIN = 10; //RC522 modülü chip select pinini tanımlıyoruz.
-int servoPin = 8; //Servo motor pinini tanımlıyoruz.
+int RST_PIN = 9; 
+int SS_PIN = 10; 
+int servoPin = 8; 
 
-Servo motor; //Servo motor için değişken oluşturuyoruz.
-MFRC522 rfid(SS_PIN, RST_PIN); //RC522 modülü ayarlarını yapıyoruz.
+Servo motor; 
+MFRC522 rfid(SS_PIN, RST_PIN); 
 byte ID[4] = { 205, 17, 0, 50};
 byte ID2[4] = { 102 , 7 , 188 , 34 }; //Yetkili kart ID'sini tanımlıyoruz. okul kartı
 
 void setup() {
-  motor.attach(servoPin); //Servo motor pinini motor değişkeni ile ilişkilendiriyoruz.
-  Serial.begin(9600); //Seri haberleşmeyi başlatıyoruz.
-  SPI.begin(); //SPI iletişimini başlatıyoruz.
-  rfid.PCD_Init(); //RC522 modülünü başlatıyoruz.
+  motor.attach(servoPin); 
+  Serial.begin(9600); 
+  SPI.begin(); 
+  rfid.PCD_Init(); 
 }
 
 void loop() {
@@ -30,9 +30,9 @@ void loop() {
    {
     Serial.println("Kapi acildi");
     ekranaYazdir();
-    motor.write(180); //Servo motoru 180 dereceye getiriyoruz.
+    motor.write(180); 
     delay(3000);
-    motor.write(0); //Servo motoru 0 dereceye getiriyoruz.
+    motor.write(0); 
     delay(1000);
   } 
   else if (rfid.uid.uidByte[0] == ID2[0] &&  rfid.uid.uidByte[1] == ID2[1] &&  rfid.uid.uidByte[2] == ID2[2] &&  rfid.uid.uidByte[3] == ID2[3])//Okunan kart ID'si ile ID değişkenini karşılaştırıyoruz.
